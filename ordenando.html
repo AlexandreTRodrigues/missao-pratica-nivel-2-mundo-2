@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row justify-content-evenly">
+        <h1 class="col-10 gy-5">Ordenando Valores</h1>
+        <div class="col-10">
+            <label for="valor" class="form-label">Valor</label><br>
+            <input type="number" class="form-control" id="valor"><br>
+            <button type="button" class="btn btn-primary" onclick="add()">Adicionar</button>
+            <hr>
+        </div>       
+        <div class="col-10">
+            <label for="metodo" class="form-label">Selecione o método:</label>
+            <select name="metodo" class="form-select" id="metodo">
+                <option value="bubbleSort">Bubble Sort</option>
+                <option value="selectionSort">Selection Sort</option>
+                <option value="quickSort">Quick Sort</option>
+            </select><br>
+            <button type="button" class="btn btn-primary" onclick="ordenar()">Ordenar</button>
+            <button type="button" class="btn btn-primary" onclick="misturar()">Misturar</button>
+            <hr>
+        </div>
+            <div class="col-10">
+            <ul id="valores">
+            </ul>
+        </div>
+    </div>
+<script>
+    function add() {
+        let node = document.createElement("li");
+        let entrada = document.getElementById("valor").value;
+        let texto = document.createTextNode(entrada);
+        node.appendChild(texto);
+        document.getElementById("valores").appendChild(node);
+    }
+
+    function ordenar() {
+        const valoresLista = document.getElementById("valores");
+        const selectMetodo = document.getElementById("metodo").value;
+        const lista = Array.from(valoresLista.children).map((item) => parseInt(item.innerHTML));
+        switch (selectMetodo) {
+            case "bubbleSort":
+                bubbleSort(lista);
+                break;
+            case "selectionSort":
+                selectionSort(lista);
+                break;
+            case "quickSort":
+                quickSort(lista);
+                break;
+        }
+        valoresLista.innerHTML = lista.map((valor) => `<li>${valor}</li>`).reduce((anterior, atual) => anterior + atual, "")
+    }
+
+    function misturar() {
+        let valoresLista = document.getElementById("valores");
+        const lista = Array.from(valoresLista.children).map((item) => parseInt(item.innerHTML));
+        embaralhaArray(lista);
+        valoresLista.innerHTML = lista.map((valor) => `<li>${valor}</li>`).reduce((anterior, atual) => anterior + atual, "")
+    }
+</script>
+<script src="ordenando.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
